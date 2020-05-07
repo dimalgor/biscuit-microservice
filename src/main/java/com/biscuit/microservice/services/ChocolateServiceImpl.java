@@ -28,4 +28,9 @@ public class ChocolateServiceImpl implements ChocolateService {
     public void updateChocolate(Long chocolateID, ChocolateDto chocolateDto) {
         // todo implement updating chocolate here
     }
+
+    @Override
+    public void deleteChocolate(Long chocolateId) {
+        // todo implement delete logic
+    }
 }

@@ -89,4 +89,13 @@ public class ChocolateControllerTest {
         // then
         then(chocolateService).should().updateChocolate(any(Long.class), any(ChocolateDto.class));
     }
+
+    @Test
+    public void deleteChocolate() throws Exception{
+        // when
+        mockMvc.perform(delete("/api/v1/chocolate/" + validChocolate.getId()))
+                .andExpect(status().isNoContent());
+        // then
+        then(chocolateService).should().deleteChocolate(any(Long.class));
+    }
 }

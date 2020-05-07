@@ -7,5 +7,7 @@ public interface ChocolateService {
 
     ChocolateDto saveNewChocolate(ChocolateDto chocolateDto);
 
-    void updateChocolate(Long chocolateID, ChocolateDto chocolateDto);
+    void updateChocolate(Long chocolateId, ChocolateDto chocolateDto);
+
+    void deleteChocolate(Long chocolateId);
 }
