@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/chocolate")
-public class ChocоlateController {
+public class ChocolateController {
     private ChocolateService chocolateService;
 
-    public ChocоlateController(ChocolateService chocolateService) {
+    public ChocolateController(ChocolateService chocolateService) {
         this.chocolateService = chocolateService;
     }
 
@@ -22,7 +22,7 @@ public class ChocоlateController {
     }
 
     @PostMapping // POST - create new chocolate
-    public ResponseEntity handlePost(ChocolateDto chocolateDto) {
+    public ResponseEntity handlePost(@RequestBody ChocolateDto chocolateDto) {
         ChocolateDto savedDto = chocolateService.saveNewChocolate(chocolateDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         // todo add hostname to URL
@@ -31,7 +31,7 @@ public class ChocоlateController {
     }
 
     @PutMapping("/{chocolateId}")
-    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, ChocolateDto chocolateDto){
+    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, @RequestBody ChocolateDto chocolateDto){
         chocolateService.updateChocolate(chocolateID, chocolateDto);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
