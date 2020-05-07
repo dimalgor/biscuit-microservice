@@ -18,4 +18,14 @@ public class ChocolateServiceImpl implements ChocolateService {
                 .expirationDate("7 months")
                 .build();
     }
+
+    @Override
+    public ChocolateDto saveNewChocolate(ChocolateDto chocolateDto) {
+        return chocolateDto.builder().id(5L).build();
+    }
+
+    @Override
+    public void updateChocolate(Long chocolateID, ChocolateDto chocolateDto) {
+        // todo implement updating chocolate here
+    }
 }
