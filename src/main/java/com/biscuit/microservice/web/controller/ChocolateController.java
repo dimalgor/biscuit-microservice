@@ -7,6 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/chocolate")
 public class ChocolateController {
@@ -22,7 +27,7 @@ public class ChocolateController {
     }
 
     @PostMapping // POST - create new chocolate
-    public ResponseEntity handlePost(@RequestBody ChocolateDto chocolateDto) {
+    public ResponseEntity handlePost(@Valid @RequestBody ChocolateDto chocolateDto) {
         ChocolateDto savedDto = chocolateService.saveNewChocolate(chocolateDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         // todo add hostname to URL
@@ -31,7 +36,7 @@ public class ChocolateController {
     }
 
     @PutMapping("/{chocolateId}")
-    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, @RequestBody ChocolateDto chocolateDto){
+    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, @Valid @RequestBody ChocolateDto chocolateDto){
         chocolateService.updateChocolate(chocolateID, chocolateDto);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -41,4 +46,7 @@ public class ChocolateController {
     public void deleteChocolate(@PathVariable("chocolateId") Long chocolateId){
         chocolateService.deleteChocolate(chocolateId);
     }
+
+
+
 }

@@ -5,10 +5,18 @@ import com.biscuit.microservice.web.model.v2.ChocolateDtoV2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v2/chocolate")
+@Validated
 public class ChocolateControllerV2 {
     private ChocolateServiceV2 chocolateServiceV2;
 
@@ -22,7 +30,7 @@ public class ChocolateControllerV2 {
     }
 
     @PostMapping // POST - create new chocolate
-    public ResponseEntity handlePost(@RequestBody ChocolateDtoV2 chocolateDtoV2) {
+    public ResponseEntity handlePost(@Valid @NotNull @RequestBody ChocolateDtoV2 chocolateDtoV2) {
         ChocolateDtoV2 savedDto = chocolateServiceV2.saveNewChocolate(chocolateDtoV2);
         HttpHeaders httpHeaders = new HttpHeaders();
         // todo add hostname to URL
@@ -31,7 +39,7 @@ public class ChocolateControllerV2 {
     }
 
     @PutMapping("/{chocolateId}")
-    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, @RequestBody ChocolateDtoV2 chocolateDtoV2) {
+    public ResponseEntity handlePut(@PathVariable("chocolateId") Long chocolateID, @Valid @RequestBody ChocolateDtoV2 chocolateDtoV2) {
         chocolateServiceV2.updateChocolate(chocolateID, chocolateDtoV2);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -41,4 +49,5 @@ public class ChocolateControllerV2 {
     public void deleteChocolate(@PathVariable("chocolateId") Long chocolateId) {
         chocolateServiceV2.deleteChocolate(chocolateId);
     }
+
 }
